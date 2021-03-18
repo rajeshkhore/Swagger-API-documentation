@@ -1,0 +1,543 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: 'http://localhost:8080'
+ 
+    variables: {}
+security:
+  - bearer-key: []
+paths:
+  '/v1/merchants/{id}/invoices':
+    post:
+      tags:
+        - invoices-api-controller
+      summary: Api to create an invoices
+      operationId: createMerchantInvoices
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/InvoiceReq_InvoicesReqBean'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseVoid_InvoicesReqBean'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                data: null
+                status: VALIDATION_ERROR
+                message: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              example:
+                data: null
+                status: UNAUTHORIZED
+                message: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                data: null
+                status: NOT_FOUND
+                message: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseObject'
+  /v1/invoice:
+    get:
+      tags:
+        - invoices-api-controller
+      summary: Api to get an invoice by id or externalRef
+      operationId: getInvoiceByIdOrExternalRef
+      parameters:
+        - name: invoiceId
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: externalRef
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseInvoiceResponseBean_InvoicesBean'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                data: null
+                status: VALIDATION_ERROR
+                message: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              example:
+                data: null
+                status: UNAUTHORIZED
+                message: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                data: null
+                status: NOT_FOUND
+                message: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseObject'
+  '/v1/invoices/{invoiceId}':
+    put:
+      tags:
+        - invoices-api-controller
+      summary: Api to update an invoice
+      operationId: updateInvoice
+      parameters:
+        - name: invoiceId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceUpdateReq_InvoicesReqBean'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseInvoiceReq_InvoicesReqBean'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                data: null
+                status: VALIDATION_ERROR
+                message: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              example:
+                data: null
+                status: UNAUTHORIZED
+                message: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                data: null
+                status: NOT_FOUND
+                message: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseObject'
+components:
+  schemas:
+    ResponseObject:
+      type: object
+      properties:
+        data:
+          type: object
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - VALIDATION_ERROR
+            - EXCEPTION_ERROR
+            - NOT_FOUND
+            - BAD_REQUEST
+            - UNAUTHORIZED
+        message:
+          type: string
+    ResponseInvoiceResponseBean_InvoicesBean:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/InvoiceResponseBean_InvoicesBean'
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - VALIDATION_ERROR
+            - EXCEPTION_ERROR
+            - NOT_FOUND
+            - BAD_REQUEST
+            - UNAUTHORIZED
+        message:
+          type: string
+    InvoiceResponseBean_InvoicesBean:
+      type: object
+      properties:
+        invoice:
+          $ref: '#/components/schemas/InvoiceReq_InvoicesBean'
+        transaction:
+          $ref: '#/components/schemas/TransactionReq_InvoicesBean'
+    TransactionReq_InvoicesBean:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        amount:
+          type: number
+        methodType:
+          type: string
+          enum:
+            - BANK
+            - CREDIT_CARD
+            - CASH
+            - PAYPAL
+        paymentDate:
+          type: string
+          format: date-time
+        createdDate:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedDate:
+          type: string
+          format: date-time
+          readOnly: true
+        currency:
+          type: string
+    ResponseInvoiceReq_InvoicesReqBean:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/InvoiceReq_InvoicesReqBean'
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - VALIDATION_ERROR
+            - EXCEPTION_ERROR
+            - NOT_FOUND
+            - BAD_REQUEST
+            - UNAUTHORIZED
+        message:
+          type: string
+    InvoiceReq_InvoicesBean:
+      required:
+        - amountGross
+        - client
+        - invoiceNumber
+        - linkDoc
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        amountGross:
+          type: number
+        amountNet:
+          type: number
+        externalId:
+          type: string
+        externalRef:
+          type: string
+        linkDoc:
+          type: string
+        invoiceNumber:
+          type: string
+        currency:
+          type: string
+        invoiceState:
+          type: string
+          enum:
+            - DUE
+            - SENT
+            - OVERDUE
+            - PAID
+            - WRITE_OFF
+            - DISPUTED
+        expectedDate:
+          type: string
+          format: date-time
+        dueDate:
+          type: string
+          format: date-time
+        createdDate:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedDate:
+          type: string
+          format: date-time
+          readOnly: true
+        client:
+          $ref: '#/components/schemas/ClientReq_InvoicesBean'
+        externalCreatedDate:
+          type: string
+          format: date-time
+    InvoiceUpdateReq_InvoicesReqBean:
+      type: object
+      properties:
+        amountGross:
+          type: number
+        amountNet:
+          type: number
+        externalId:
+          type: string
+        externalRef:
+          type: string
+        linkDoc:
+          type: string
+        invoiceNumber:
+          type: string
+        currency:
+          type: string
+        invoiceState:
+          type: string
+          enum:
+            - DUE
+            - SENT
+            - OVERDUE
+            - PAID
+            - WRITE_OFF
+            - DISPUTED
+        expectedDate:
+          type: string
+          format: date-time
+        dueDate:
+          type: string
+          format: date-time
+        externalCreatedDate:
+          type: string
+          format: date-time
+    ClientReq_InvoicesBean:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+        vatNumber:
+          type: string
+        exIdClient:
+          type: string
+        cf:
+          type: string
+        address:
+          type: string
+        zipCode:
+          type: string
+        city:
+          type: string
+        province:
+          type: string
+        addressExtra:
+          type: string
+        paCode:
+          type: string
+        pec:
+          type: string
+        email:
+          type: string
+        country:
+          type: string
+        token:
+          type: string
+        telephone:
+          type: string
+        deleted:
+          type: boolean
+          readOnly: true
+        createdDate:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedDate:
+          type: string
+          format: date-time
+          readOnly: true
+        defaultPaymentDays:
+          type: integer
+          format: int32
+        workflowId:
+          type: integer
+          format: int64
+        workflowName:
+          type: string
+    InvoiceReq_InvoicesReqBean:
+      required:
+        - amountGross
+        - client
+        - invoiceNumber
+        - linkDoc
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        amountGross:
+          type: number
+        amountNet:
+          type: number
+        externalId:
+          type: string
+        externalRef:
+          type: string
+        linkDoc:
+          type: string
+        invoiceNumber:
+          type: string
+        currency:
+          type: string
+        invoiceState:
+          type: string
+          enum:
+            - DUE
+            - SENT
+            - OVERDUE
+            - PAID
+            - WRITE_OFF
+            - DISPUTED
+        expectedDate:
+          type: string
+          format: date-time
+        dueDate:
+          type: string
+          format: date-time
+        createdDate:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedDate:
+          type: string
+          format: date-time
+          readOnly: true
+        client:
+          $ref: '#/components/schemas/ClientReq_InvoicesReqBean'
+        externalCreatedDate:
+          type: string
+          format: date-time
+    ClientReq_InvoicesReqBean:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+        vatNumber:
+          type: string
+        exIdClient:
+          type: string
+        cf:
+          type: string
+        address:
+          type: string
+        zipCode:
+          type: string
+        city:
+          type: string
+        province:
+          type: string
+        addressExtra:
+          type: string
+        paCode:
+          type: string
+        pec:
+          type: string
+        email:
+          type: string
+        country:
+          type: string
+        token:
+          type: string
+        telephone:
+          type: string
+        deleted:
+          type: boolean
+          readOnly: true
+        createdDate:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedDate:
+          type: string
+          format: date-time
+          readOnly: true
+        defaultPaymentDays:
+          type: integer
+          format: int32
+        workflowId:
+          type: integer
+          format: int64
+        workflowName:
+          type: string
+    ResponseVoid_InvoicesReqBean:
+      type: object
+      properties:
+        data:
+          type: object
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - VALIDATION_ERROR
+            - EXCEPTION_ERROR
+            - NOT_FOUND
+            - BAD_REQUEST
+            - UNAUTHORIZED
+        message:
+          type: string
+  securitySchemes:
+    bearer-key:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+

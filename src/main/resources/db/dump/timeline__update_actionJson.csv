@@ -1,0 +1,22 @@
+id,client_id,invoice_id,action_id,skip,reschedule,status,message,created_date,updated_date,type,action_json
+102,9,12,101,FALSE,FALSE,SUCCESS,,2021-02-19 12:08:24,2021-02-19 12:08:24,ACTION,"{""message"":""Object: Letter of formal notice
+
+Dear Sir or Madam,
+
+Despite several reminders, your company has not paid yet the following invoices that are past due {overdue_invoice_reference_list} and that you will find attached to this letter.
+
+We therefore demand that you proceed to the payment of {customer_outstanding_amount} within the next 15 days. Otherwise, we would have to take the matter in front of the proper jurisdiction and ask for compensation for our financial loss.
+
+We look forward to hearing from you,
+
+Regards"",
+""actionTypeId"": 3,
+  ""actionName"": ""LETTER ACTION""}"
+101,9,12,1,FALSE,FALSE,SUCCESS,,2021-02-19 12:08:24,2021-02-19 12:08:24,ACTION,"{""recipients"":[{""id"":1,""name"":""Andrea"",""email"":""andrea.zanda@bflows.net"",""phone"":""1234567890"",""role"":""ADMIN"",""lastName"":""Zanda""}],""BCC"":[{""id"":2,""name"":""Rinaldo"",""email"":""bonazzo@kitzanos.com"",""phone"":""1234567890"",""role"":""ACCOUNTING"",""lastName"":""Bonazzo""}],""CC"":[{""id"":3,""name"":""test contact"",""email"":""test@test.com"",""phone"":""1234567890"",""role"":""PURCHASER"",""lastName"":""test""}],""subject"":""test message"",""message"":""message body for mail"",""actionTypeId"": 1,
+""actionName"":""test action""
+}"
+105,9,12,1,FALSE,FALSE,SUCCESS,,2021-02-25 11:57:50,2021-02-25 11:57:50,INVOICE_STATE_CHANGED,"{""oldInvoiceState"":""OVERDUE"",""invoiceNumber"":""213"",""invoiceAmount"":199,""currency"":""EUR"",""newInvoiceState"":""PAID""}"
+104,9,12,1,FALSE,FALSE,SUCCESS,,2021-02-19 12:08:24,2021-02-19 12:08:24,TRANSACTION,"{""amount"":199,""methodType"":""CASH"",""currency"":""EUR"",""paymentDate"":""2021-02-19T07:19:38"",""transactionId"":1,""isDeleted"":false ,""invoiceNumber"": ""213""}"
+103,9,12,102,FALSE,FALSE,SUCCESS,,2021-02-19 12:08:24,2021-02-19 12:08:24,ACTION,"{""recipients"":[{""id"":1,""name"":""Andrea"",""email"":""andrea.zanda@bflows.net"",""phone"":""1234567890"",""role"":""ADMIN"",""lastName"":""Zanda""},{""id"":2,""name"":""Rinaldo"",""email"":""bonazzo@kitzanos.com"",""phone"":""1234567890"",""role"":""ACCOUNTING"",""lastName"":""Bonazzo""}],""callScript"":""Objectives :- understand potential blocking points - obtain a payment date commitment - send a follow-up mail after the call"",
+""actionTypeId"": 4,
+""actionName"": ""TELEPHONE ACTION""}"

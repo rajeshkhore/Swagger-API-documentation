@@ -1,0 +1,17 @@
+id,name,workflow_id,is_deleted,action_json,trigger_days,created_date,updated_date,action_type_id
+1,test action,1,FALSE,"{""recipients"":[""ACCOUNTING"",""ADMIN""],""BCC"":[""SALES""],""CC"":[""PURCHASER""],""subject"":""test message"",""message"":""message body for mail""}",68,2021-01-21 11:00:00,2021-01-21 15:00:00,1
+2,test action 1,1,FALSE,"{""recipients"":[""ACCOUNTING"",""PURCHASER""],""BCC"":[""SALES""],""CC"":[""PAYER""],""subject"":""test message"",""message"":""message body for mail""}",104,2021-01-21 10:00:00,2021-01-21 14:00:00,1
+102,TELEPHONE ACTION,1,FALSE,"{""recipients"":[{""id"":1,""name"":""Andrea"",""email"":""andrea.zanda@bflows.net"",""phone"":""1234567890"",""role"":""ADMIN"",""lastName"":""Zanda""},{""id"":2,""name"":""Rinaldo"",""email"":""bonazzo@kitzanos.com"",""phone"":""1234567890"",""role"":""ACCOUNTING"",""lastName"":""Bonazzo""}],""callScript"":""Objectives :- understand potential blocking points - obtain a payment date commitment - send a follow-up mail after the call""
+}",6,2021-03-03 15:40:18,2021-03-03 15:40:18,4
+101,LETTER ACTION,1,FALSE,"{""message"":""Object: Letter of formal notice
+
+Dear Sir or Madam,
+
+Despite several reminders, your company has not paid yet the following invoices that are past due {overdue_invoice_reference_list} and that you will find attached to this letter.
+
+We therefore demand that you proceed to the payment of {customer_outstanding_amount} within the next 15 days. Otherwise, we would have to take the matter in front of the proper jurisdiction and ask for compensation for our financial loss.
+
+We look forward to hearing from you,
+
+Regards""
+}",6,2021-03-03 15:40:18,2021-03-03 15:40:18,3

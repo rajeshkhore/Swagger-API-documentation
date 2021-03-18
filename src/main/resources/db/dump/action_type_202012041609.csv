@@ -1,0 +1,89 @@
+id,name,created_date,updated_date,json
+1,MANUAL_EMAIL,2020-12-04 16:07:30,2020-12-04 16:07:30,"{
+
+""recipients"": [
+""Main contact"",
+""Accounting"",
+""Sales"",
+""Payer"",""Purchaser""
+],
+""CC"": [
+""Account Manager"",
+""Finance users"",
+""Accountants"",
+""Jhon Wayne"",""Jhone Deo""
+],
+""BCC"": [
+""Account Manager"",
+""Finance users"",
+""Accountants"",
+""Jhon Wayne"",""Jhone Deo""
+],
+""subject"": ""{my_company_name} : late payment - invoice {carrying_invoice_ref}"",
+""message"": ""Hello,
+
+Unless we are mistaken, we have not yet received your payment for your invoice {carrying_invoice_link_start}{carrying_invoice_ref}{carrying_invoice_link_end} for a total of {carrying_invoice_amount}, which is now overdue.
+
+Please also note that your account balance currently stands at {customer_outstanding_amount}. You can find a summary of your account's state by {customer_summary_link_start}following this link{customer_summary_link_end}.
+
+We would appreciate a prompt payment upon receipt of this email. If you have already paid, please ignore this notice.
+
+Best regards,
+{user_name}""
+}"
+2,AUTOMATIC_EMAIL,2020-12-04 16:07:30,2020-12-04 16:07:30,"{
+""send as"":""Account Menager"",
+""recipients"": [
+""Main contact"",
+""Accounting"",
+""Sales"",
+""Payer"",""Purchaser""
+],
+""CC"": [
+""Account Manager"",
+""Finance users"",
+""Accountants"",
+""Jhon Wayne"",""Jhone Deo""
+],
+""BCC"": [
+""Account Manager"",
+""Finance users"",
+""Accountants"",
+""Jhon Wayne"",""Jhone Deo""
+],
+""subject"": ""{my_company_name} : late payment - invoice {carrying_invoice_ref}"",
+""message"": ""Hello,
+
+Unless we are mistaken, we have not yet received your payment for your invoice {carrying_invoice_link_start}{carrying_invoice_ref}{carrying_invoice_link_end} for a total of {carrying_invoice_amount}, which is now overdue.
+
+Please also note that your account balance currently stands at {customer_outstanding_amount}. You can find a summary of your account's state by {customer_summary_link_start}following this link{customer_summary_link_end}.
+
+We would appreciate a prompt payment upon receipt of this email. If you have already paid, please ignore this notice.
+
+Best regards,
+{user_name}""
+}"
+3,LETTER,2020-12-04 16:07:30,2020-12-04 16:07:30,"{   
+""pricing"":""Letter service pricing grid"",
+""message"":""Object: Letter of formal notice
+
+Dear Sir or Madam,
+
+Despite several reminders, your company has not paid yet the following invoices that are past due {overdue_invoice_reference_list} and that you will find attached to this letter.
+
+We therefore demand that you proceed to the payment of {customer_outstanding_amount} within the next 15 days. Otherwise, we would have to take the matter in front of the proper jurisdiction and ask for compensation for our financial loss.
+
+We look forward to hearing from you,
+
+Regards""
+ }"
+4,TELEPHONE_CALL,2020-12-04 16:07:30,2020-12-04 16:07:30,"{
+""recipients"": [
+""Main contact"",
+""Accounting"",
+""Sales"",
+""Payer"",""Purchaser""
+],
+""call script"":""Objectives :- understand potential blocking points - obtain a payment date commitment - send a follow-up mail after the call""
+
+}"

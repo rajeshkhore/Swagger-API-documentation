@@ -1,0 +1,3 @@
+"id","address_cap","address_city","address_province","address_state","address_street","bank_company_name","bank_name","direct_url","email","iban","merchant_state","name","swift","vat_number","integrations","phone","default_payment_days","website"
+2,,,,,,,,,,,,SUPER USER MERCHANT,,,false,,60,
+1,"09030",cagliari,,"",via bologna 43,"","",,zanda.andre@gmail.com,"",,Memento SRL,"","03293209838",true,"",60,https://www.eventa.it

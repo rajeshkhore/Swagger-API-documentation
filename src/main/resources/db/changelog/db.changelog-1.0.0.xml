@@ -1,0 +1,1067 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.0.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+	
+	<changeSet author="Rajesh Khore" id="21-07-2020_1">
+
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="merchant" />
+			</not>
+		</preConditions>
+
+		<createTable tableName="merchant">
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="merchant_pkey" />
+			</column>
+			<column name="address_cap" type="VARCHAR(255)" />
+			<column name="address_city" type="VARCHAR(255)" />
+			<column name="address_province" type="VARCHAR(255)" />
+			<column name="address_state" type="VARCHAR(255)" />
+			<column name="address_street" type="VARCHAR(255)" />
+			<column name="bank_company_name" type="VARCHAR(255)" />
+			<column name="bank_name" type="VARCHAR(255)" />
+			<column name="direct_url" type="VARCHAR(255)" />
+			<column name="email" type="VARCHAR(255)" />
+			<column name="iban" type="VARCHAR(255)" />
+			<column name="merchant_state" type="VARCHAR(255)" />
+			<column name="name" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="swift" type="VARCHAR(255)" />
+			<column name="vat_number" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet author="Rajesh Khore" id="21-07-2020_2">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="role" />
+			</not>
+		</preConditions>
+		<createTable tableName="role">
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="role_pkey" />
+			</column>
+			<column name="role_desc" type="VARCHAR(120)" />
+			<column name="role_name" type="VARCHAR(30)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	
+	<changeSet author="Rajesh Khore" id="21-07-2020_3">
+
+
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="invoices" />
+			</not>
+		</preConditions>
+		<createTable tableName="invoices">
+
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="invoices_pkey" />
+			</column>
+			<column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			<column name="updated_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			<column name="amount_gross" type="numeric">
+				<constraints nullable="false" />
+			</column>
+			<column name="amount_net" type="numeric" />
+			<column name="currency" type="VARCHAR(255)" />
+			<column name="customer" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="external_client_id" type="VARCHAR(255)" />
+			<column name="external_id" type="VARCHAR(255)" />
+			<column name="external_ref" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="invoice_number" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="invoice_state" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="link_doc" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="payment_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			<!-- <column name="merchant_id" type="INTEGER">
+				<constraints foreignKeyName="fk_invoices_merchant"
+					references="merchant(id)" />
+			</column> -->
+		</createTable>
+	</changeSet>
+
+	<changeSet author="Rajesh Khore" id="21-07-2020_4">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="user" />
+			</not>
+		</preConditions>
+		<createTable tableName="user">
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="user_pkey" />
+			</column>
+			<column name="email" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="first_name" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="last_name" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="password" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="phone" type="VARCHAR(255)" />
+			<column name="user_status" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="merchant_id" type="INTEGER">
+				<constraints foreignKeyName="fk_user_merchant"
+					references="merchant(id)" />
+			</column>
+			<column name="role_id" type="INTEGER">
+				<constraints foreignKeyName="fk_user_role" references="role(id)" />
+			</column>
+			<column name="temp_token" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet author="Rajesh Khore" id="21-07-2020_5">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="invoicing" />
+			</not>
+		</preConditions>
+		<createTable tableName="invoicing">
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="invoicing_pkey" />
+			</column>
+			<column name="helptext" type="VARCHAR(255)" />
+			<column name="integrationtype" type="VARCHAR(255)" />
+			<column name="link" type="VARCHAR(255)" />
+			<column name="name" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="21-07-2020_6" author="Rajesh Khore">
+		<insert tableName="invoicing">
+			<column name="helptext"
+				value="Guida su come trovare le credenziali qui: https://api.fattureincloud.it/v1/documentation/dist/"></column>
+			<column name="id" value="1"></column>
+			<column name="integrationtype" value="APIKEY"></column>
+			<column name="link" value="https://api.fattureincloud.it:443/v1/info/account"></column>
+			<column name="name" value="Fatture in cloud"></column>
+		</insert>
+		<insert tableName="invoicing">
+			<column name="id" value="2"></column>
+			<column name="helptext"
+				value="Guida su come trovare le credenziali qui: https://www.passepartout.net"></column>
+			<column name="integrationtype" value="APIKEY"></column>
+			<column name="link" value="https://www.passepartout.net"></column>
+			<column name="name" value="Passepartout"></column>
+		</insert>
+
+	</changeSet>
+
+	<changeSet id="21-07-2020_7" author="Rajesh Khore">
+		<insert tableName="role">
+			<column name="id" value="1"></column>
+			<column name="role_desc" value="Admin role"></column>
+			<column name="role_name" value="ROLE_ADMIN"></column>
+		</insert>
+		<insert tableName="role">
+			<column name="id" value="2"></column>
+			<column name="role_desc" value="Customer role"></column>
+			<column name="role_name" value="ROLE_CUSTOMER"></column>
+		</insert>
+		<insert tableName="role">
+			<column name="id" value="3"></column>
+			<column name="role_desc" value="Anonymous role"></column>
+			<column name="role_name" value="ROLE_ANONYMOUS"></column>
+		</insert>
+	</changeSet>
+	
+	<changeSet author="Rajesh Khore" id="29-09-2020_1">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="invoicing_connection" />
+			</not>
+		</preConditions>
+		<createTable tableName="invoicing_connection">
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="invoicing_connection_pkey" />
+			</column>
+			<column name="api_uid" type="VARCHAR(255)"/>
+			<column name="api_key" type="VARCHAR(255)"/>
+            <column name="type_id" type="INTEGER"/>				
+			<column name="merchant_id" type="INTEGER">
+			
+				<constraints foreignKeyName="fk_invoicing_connection_merchant"
+					references="merchant(id)" />
+			</column>
+			<column name="invoicing_id" type="INTEGER">
+				<constraints foreignKeyName="fk_invoicing_connection_invoicing" references="invoicing(id)" />
+			</column>
+			<column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			<column name="updated_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+		</createTable>
+	</changeSet>
+	
+	<changeSet author="Rajesh Khore" id="29-09-2020_2">
+    <addColumn tableName="merchant">
+        <column name="integrations" type="boolean" defaultValueComputed="false">
+        </column>
+    </addColumn>
+</changeSet>
+
+<changeSet id="30-09-2020_1" author="Rajesh Khore">
+	<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="client" />
+			</not>
+		</preConditions>
+		<createTable tableName="client">
+		<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="client_pkey" />
+			</column>
+			<column name="piva" type="VARCHAR(15)">
+				<constraints nullable="false" />
+			</column>
+			<column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			<column name="updated_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			<column name="name" type="VARCHAR(255)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="ex_id_client" type="VARCHAR(255)" />
+			<column name="cf" type="VARCHAR(255)" />
+			<column name="address" type="VARCHAR(255)" />
+			<column name="zip_code" type="VARCHAR(255)" />
+			<column name="city" type="VARCHAR(255)" />
+			<column name="province" type="VARCHAR(255)" />
+			<column name="address_extra" type="VARCHAR(255)" />
+			<column name="pa_code" type="VARCHAR(255)" />
+			<column name="PEC" type="VARCHAR(255)" />
+			<column name="email" type="VARCHAR(255)" />
+			<column name="country" type="VARCHAR(255)" />
+			<column name="merchant_id" type="INTEGER">
+				<constraints foreignKeyName="fk_client_merchant"
+					references="merchant(id)" />
+			</column>
+			
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="30-09-2020_2" author="Rajesh Khore">
+	<!--  <dropColumn columnName="merchant_id" tableName="invoices"/> -->
+	   <addColumn tableName="invoices">
+       <column name="client_id" type="INTEGER">
+				<constraints foreignKeyName="fk_invoices_client"
+					references="client(id)" />
+			</column>
+        
+    </addColumn>
+	</changeSet>
+	
+	<changeSet id="30-09-2020_3" author="Rajesh Khore">
+    <dropNotNullConstraint tableName="invoices" columnName="external_ref" columnDataType="VARCHAR(255)"/>
+</changeSet>
+
+	<changeSet id="05-10-2020_1" author="Rajesh Khore">
+	    <dropColumn columnName="customer" tableName="invoices"/>
+	</changeSet>
+
+
+	<changeSet id="08-10-2020_1" author="Rajesh Khore">
+
+		<addColumn tableName="invoices">
+			<column name="due_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+
+		</addColumn>
+		<addColumn tableName="invoices">
+			<column name="expected_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="14-10-2020_1" author="Rajesh Khore">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="contact" />
+			</not>
+		</preConditions>
+		<createTable tableName="contact">
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="contact_pkey" />
+			</column>
+
+			<column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			<column name="updated_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			<column name="name" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="email" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="phone" type="VARCHAR(255)">
+
+			</column>
+
+			<column name="role" type="VARCHAR(255)">
+
+			</column>
+
+			<column name="client_id" type="INTEGER">
+				<constraints foreignKeyName="fk_contact_client"
+					references="client(id)" />
+			</column>
+			<column name="deleted" type="boolean" defaultValueComputed="false" />
+		</createTable>
+	</changeSet>
+
+	<changeSet author="Rajesh Khore" id="14-10-2020_2">
+		<addColumn tableName="client">
+			<column name="deleted" type="boolean" defaultValueComputed="false">
+			</column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="Rajesh Khore" id="14-10-2020_3">
+		<dropColumn columnName="external_client_id" tableName="invoices">
+
+		</dropColumn>
+	</changeSet>
+	
+	<changeSet id="16-10-2020_1" author="Rajesh Khore">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="transactions" />
+			</not>
+		</preConditions>
+		<createTable tableName="transactions">
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="transactions_pkey" />
+			</column>
+
+			<column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			<column name="updated_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			<column name="AMOUNT" type="numeric">
+				<constraints nullable="false" />
+			</column>
+			<column name="METHOD_TYPE" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PAYMENT_DATE" type="TIMESTAMP WITHOUT TIME ZONE" />
+
+			<column name="INVOICES_ID" type="INTEGER">
+				<constraints foreignKeyName="fk_transactions_invoices"
+					references="invoices(id)" />
+			</column>
+			
+		</createTable>
+	</changeSet>
+	
+	<changeSet author="Rajesh Khore" id="20-10-2020_1">
+	<addColumn tableName="merchant">
+		<column name="phone" type="VARCHAR(255)">
+		</column>
+	</addColumn>
+</changeSet>
+
+
+	<changeSet author="Rajesh Khore" id="03-11-2020_1">
+		<addColumn tableName="merchant">
+			<column name="DEFAULT_PAYMENT_DAYS" type="Integer"
+				defaultValueComputed="60">
+			</column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="Rajesh Khore" id="04-11-2020_1">
+		<addColumn tableName="client">
+			<column name="TELEPHONE" type="VARCHAR(255)">
+			</column>
+		</addColumn>
+	</changeSet>
+
+
+	<changeSet author="Rajesh Khore" id="05-11-2020_1">
+		<addColumn tableName="merchant">
+			<column name="WEBSITE" type="VARCHAR(255)">
+			</column>
+		</addColumn>
+	</changeSet>
+	
+
+<changeSet author="Rajesh Khore" id="26-11-2020_1">
+	<addColumn tableName="transactions">
+		<column name="currency" type="VARCHAR(10)">
+		</column>
+	</addColumn>
+</changeSet>
+
+<changeSet id="10-11-2020_2" author="Rajesh Khore">
+    <loadData tableName="merchant" file="db/dump/merchant_202011101509.csv">
+      <column header="id" name="id" type="NUMERIC"/>
+      <column header="address_cap" name="address_cap" type="STRING"/>
+      <column header="address_city" name="address_city" type="STRING"/>
+      <column header="address_province" name="address_province" type="STRING"/>
+      <column header="address_state" name="address_state" type="String"/>
+      <column header="address_street" name="address_street" type="STRING"/>
+      <column header="bank_company_name" name="bank_company_name" type="STRING"/>
+      <column header="bank_name" name="bank_name" type="STRING"/>
+      <column header="direct_url" name="direct_url" type="String"/>
+      <column header="email" name="email" type="String"/>
+      <column header="iban" name="iban" type="String"/>
+      <column header="merchant_state" name="merchant_state" type="String"/>
+      <column header="name" name="name" type="String"/>
+      <column header="swift" name="swift" type="String"/>
+      <column header="vat_number" name="vat_number" type="String"/>  
+      
+      <column header="integrations" name="integrations" type="BOOLEAN"/>  
+      <column header="phone" name="phone" type="String"/>
+      <column header="default_payment_days" name="default_payment_days" type="NUMERIC"/>  
+      <column header="website" name="website" type="String"/>          
+    </loadData>
+    
+    
+			<insert tableName="user">
+			<column name="id" value="1"></column>
+			<column name="email" value="test@test.test"></column>
+			<column name="first_name" value="test"></column>
+			<column name="last_name" value="test"></column>
+			<column name="password" value="$2a$10$doUyOcEm8WPuFfpFT5y18.1DvZzF7exbqgy9X0P27cUBK7YWbfzzS"></column>
+			<column name="phone" value="+393482353704" />
+			<column name="user_status" value="ACTIVE"></column>
+			<column name="merchant_id" value="1"></column>
+			<column name="role_id" value="1"></column>
+			<column name="temp_token" />
+		</insert>
+		
+		
+	  <loadData tableName="client" file="db/dump/client_202011101451.csv">
+      <column header="id" name="id" type="NUMERIC"/>
+      <column header="piva" name="piva" type="STRING"/>
+      <column header="created_date" name="created_date" type="DATE"/>
+      <column header="updated_date" name="updated_date" type="DATE"/>
+      <column header="name" name="name" type="String"/>
+      <column header="ex_id_client" name="ex_id_client" type="STRING"/>
+      <column header="cf" name="cf" type="STRING"/>
+      <column header="address" name="address" type="STRING"/>
+      <column header="zip_code" name="zip_code" type="String"/>
+      <column header="address_extra" name="address_extra" type="String"/>
+      <column header="pa_code" name="pa_code" type="String"/>
+      <column header="PEC" name="PEC" type="String"/>
+      <column header="email" name="email" type="String"/>
+      <column header="country" name="country" type="String"/>
+      <column header="merchant_id" name="merchant_id" type="NUMERIC"/>
+      <column header="deleted" name="deleted" type="BOOLEAN"/>  
+       <column header="telephone" name="telephone" type="STRING"/>
+    </loadData>
+    
+    
+    
+      <loadData tableName="invoices" file="db/dump/invoices_202011101437.csv">
+      <column header="id" name="id" type="NUMERIC"/>
+      <column header="created_date" name="created_date" type="DATE"/>
+      <column header="updated_date" name="updated_date" type="DATE"/>
+      <column header="amount_gross" name="amount_gross" type="NUMERIC"/>
+      <column header="amount_net" name="amount_net" type="NUMERIC"/>
+      <column header="currency" name="currency" type="STRING"/>
+      <column header="external_id" name="external_id" type="STRING"/>
+      <column header="external_ref" name="external_ref" type="STRING"/>
+      <column header="invoice_number" name="invoice_number" type="String"/>
+      <column header="invoice_state" name="invoice_state" type="String"/>
+      <column header="link_doc" name="link_doc" type="String"/>
+      <column header="payment_date" name="payment_date" type="DATE"/>
+      <column header="client_id" name="client_id" type="NUMERIC"/>
+      <column header="due_date" name="due_date" type="DATE"/>
+      <column header="expected_date" name="expected_date" type="DATE"/>  
+    </loadData>
+    
+    
+      <loadData tableName="transactions" file="db/dump/transactions_202011101439.csv">
+      <column header="id" name="id" type="NUMERIC"/>
+      <column header="created_date" name="created_date" type="DATE"/>
+      <column header="updated_date" name="updated_date" type="DATE"/>
+      <column header="amount" name="amount" type="NUMERIC"/>
+      <column header="method_type" name="method_type" type="STRING"/>
+      <column header="payment_date" name="payment_date" type="DATE"/>
+      <column header="invoices_id" name="invoices_id" type="NUMERIC"/>
+       
+       
+    </loadData>
+    
+    <sql dbms="postgresql">select setval('bflows_schema.merchant_id_seq', (select max(id)+1 from bflows_schema.merchant), false)</sql>
+    <sql dbms="postgresql">select setval('bflows_schema.user_id_seq', (select max(id)+1 from bflows_schema.user), false)</sql>
+    <sql dbms="postgresql">select setval('bflows_schema.client_id_seq', (select max(id)+1 from bflows_schema.client), false)</sql>
+    <sql dbms="postgresql">select setval('bflows_schema.invoices_id_seq', (select max(id)+1 from bflows_schema.invoices), false)</sql>
+    <sql dbms="postgresql">select setval('bflows_schema.transactions_id_seq', (select max(id)+1 from bflows_schema.transactions), false)</sql>
+    
+</changeSet>
+
+<changeSet id="28-10-2020_1" author="Rajesh Khore">
+
+		<insert tableName="role">
+			<column name="id" value="4"></column>
+			<column name="role_desc" value="Super user role"></column>
+			<column name="role_name" value="ROLE_SUPER_ADMIN"></column>
+		</insert>
+
+
+
+		<insert tableName="user">
+			<column name="id" value="2"></column>
+			<column name="email" value="superUser@test.test"></column>
+			<column name="first_name" value="test"></column>
+			<column name="last_name" value="test"></column>
+			<column name="password"
+				value="$2a$10$doUyOcEm8WPuFfpFT5y18.1DvZzF7exbqgy9X0P27cUBK7YWbfzzS"></column>
+			<column name="phone" value="+393482353704" />
+			<column name="user_status" value="ACTIVE"></column>
+			<column name="merchant_id" value="2"></column>
+			<column name="role_id" value="4"></column>
+			<column name="temp_token" />
+		</insert>
+
+		<sql dbms="postgresql">select setval('bflows_schema.merchant_id_seq', (select
+			max(id)+1 from bflows_schema.merchant), false)</sql>
+		<sql dbms="postgresql">select setval('bflows_schema.user_id_seq', (select
+			max(id)+1 from bflows_schema.user), false)</sql>
+		<sql dbms="postgresql">select setval('bflows_schema.role_id_seq', (select
+			max(id)+1 from bflows_schema.role), false)</sql>
+	</changeSet>
+	
+	<changeSet id="29-10-2020_1" author="Rajesh Khore">
+		<insert tableName="invoicing_connection">
+			<column name="id" value="1" />
+			<column name="api_uid" value="88864" />
+			<column name="api_key" value="d0f99891fa6d8ec7606fd3ed09f2c086" />
+			<column name="type_id" value="1" />
+			<column name="merchant_id" value="1" />
+			<column name="invoicing_id" value="1" />
+			<column name="created_date" valueDate="now()" />
+			<column name="updated_date" valueDate="now()" />
+		</insert>
+		 <update tableName="merchant">
+        <column name="integrations" value="true" />
+        <where>id = '1'</where>
+    </update>
+		<sql dbms="postgresql">select setval('bflows_schema.invoicing_connection_id_seq', (select
+			max(id)+1 from bflows_schema.invoicing_connection), false)</sql>
+	</changeSet>
+	
+	<changeSet author="Rajesh Khore" id="17-11-2020_1">
+    <renameColumn columnDataType="String"
+            newColumnName="vat_number"
+            oldColumnName="piva"
+            tableName="client"/>
+</changeSet>
+
+<changeSet author="Rajesh Khore" id="30-11-2020_1">
+		<addColumn tableName="contact">
+			<column name="LAST_NAME" type="VARCHAR(255)">
+			</column>
+		</addColumn>
+	</changeSet>
+
+
+	<changeSet author="Rajesh Khore" id="01-12-2020_1">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="Workflow" />
+			</not>
+		</preConditions>
+		<createTable tableName="workflow">
+			<column autoIncrement="true" name="ID" type="INTEGER">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="workflow_pkey" />
+			</column>
+			<column name="NAME" type="VARCHAR(120)" />
+
+			<column name="MERCHANT_ID" type="INTEGER">
+				<constraints foreignKeyName="fk_workflow_merchant"
+					references="merchant(id)" />
+			</column>
+			<column name="IS_DELETED" type="boolean" defaultValueComputed="false" />
+
+			<column name="EMAIL" type="VARCHAR(30)"/>
+			
+			<column name="DEFAULT_WORKFLOW" type="boolean" />
+
+			<column name="MINIMUM_CONTACT_DELAY" type="Integer" />
+				
+
+			<column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			<column name="updated_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+
+		</createTable>
+	</changeSet>
+
+	<changeSet id="04-12-2020_11" author="Rajesh Khore">
+
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="action_type" />
+			</not>
+		</preConditions>
+		<createTable tableName="action_type">
+			<column autoIncrement="true" name="ID" type="INTEGER">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="action_type_pkey" />
+			</column>
+			<column name="NAME" type="VARCHAR(255)" />
+             <column name="JSON" type="VARCHAR" />
+			<column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			<column name="updated_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+
+		</createTable>
+		
+		
+	 <loadData tableName="action_type" file="db/dump/action_type_202012041609.csv">
+      <column header="id" name="id" type="NUMERIC"/>
+      <column header="created_date" name="created_date" type="DATE"/>
+      <column header="updated_date" name="updated_date" type="DATE"/>
+       <column header="name" name="name" type="String"/>
+      <column header="json" name="json" type="String"/>
+    </loadData>
+    
+    <sql dbms="postgresql">select setval('bflows_schema.action_type_id_seq', (select max(id)+1 from bflows_schema.action_type), false)</sql>
+
+		
+	</changeSet>
+	<changeSet id="04-12-2020_2" author="Rajesh Khore">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="action" />
+			</not>
+		</preConditions>
+		<createTable tableName="action">
+			<column autoIncrement="true" name="ID" type="INTEGER">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="action_pkey" />
+			</column>
+			<column name="NAME" type="VARCHAR(255)" />
+
+			<column name="WORKFLOW_ID" type="INTEGER">
+				<constraints foreignKeyName="fk_action_workflow"
+					references="workflow(id)" />
+			</column>
+			<column name="IS_DELETED" type="boolean" defaultValueComputed="false" />
+
+			<column name="ACTION_JSON" type="VARCHAR(255)" />
+
+			<column name="TRIGGER_DAYS" type="Integer" />
+
+
+			<column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			<column name="updated_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			<column name="ACTION_TYPE_ID" type="INTEGER">
+				<constraints foreignKeyName="fk_action_action_type"
+					references="action_type(id)" />
+			</column>
+		</createTable>
+	</changeSet>
+	
+    <changeSet author="Rajesh Khore" id="1-12-2020_2">
+		<insert tableName="workflow">
+			<column name="id" value="1" />
+			<column name="name" value="main" />
+			<column name="is_deleted" value="false" />
+			<column name="email" value="zanda.andre@gmail.com"/>
+			<column name="merchant_id" value="1" />
+			<column name="default_workflow" value="true" />
+			<column name="minimum_contact_delay" value="5" />
+			<column name="created_date" valueDate="now()" />
+			<column name="updated_date" valueDate="now()" />
+		</insert>
+		<sql dbms="postgresql">select setval('bflows_schema.workflow_id_seq', (select
+			max(id)+1 from bflows_schema.workflow), false)</sql>
+	</changeSet>
+	
+	<changeSet id="15-12-2020_1" author="Rajesh Khore">
+	    <dropColumn columnName="payment_date" tableName="invoices"/>
+	</changeSet>
+	
+	
+		<changeSet author="Rajesh Khore" id="24-12-2020_1">
+		<addColumn tableName="client">
+			<column name="DEFAULT_PAYMENT_DAYS" type="Integer"
+				>
+			</column>
+		</addColumn>
+	</changeSet>
+	
+	
+	<changeSet author="Rajesh Khore" id="24-12-2020_2">
+		<addColumn tableName="client">
+			<column name="WORKFLOW_ID" type="INTEGER">
+				<constraints foreignKeyName="fk_client_workflow"
+					references="workflow(id)" />
+			</column>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet author="Rajesh Khore" id="30-12-2020_1">
+
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="timeline"/>
+			</not>
+		</preConditions>
+
+		<createTable tableName="timeline">
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="timeline_pkey" />
+			</column>
+			<column name="CLIENT_ID" type="INTEGER">
+				<constraints foreignKeyName="fk_timeline_client"
+					references="client(id)" />
+			</column>
+			<column name="INVOICE_ID" type="INTEGER">
+				<constraints foreignKeyName="fk_timeline_invoices"
+					references="invoices(id)" />
+			</column>
+			<column name="ACTION_ID" type="INTEGER">
+				<constraints foreignKeyName="fk_timeline_action"
+					references="action(id)" />
+			</column>
+			<column name="SKIP" type="boolean" />
+			<column name="RESCHEDULE" type="boolean" />
+			<column name="STATUS" type="VARCHAR(255)" />
+			<column name="MESSAGE" type="VARCHAR(255)" />
+			<column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			<column name="updated_date" type="TIMESTAMP WITHOUT TIME ZONE" />
+			
+	
+		</createTable>
+	</changeSet>
+
+	<changeSet author="Rajesh Khore" id="14-01-2021_1">
+		<modifyDataType tableName="action" columnName="ACTION_JSON"
+			newDataType="TEXT" />
+	</changeSet>
+	
+
+	<changeSet author="Rajesh Khore" id="20-01-2021_1">
+		<addColumn tableName="user">
+			<column name="IS_EMAIL_VERIFIED" type="boolean">
+			</column>
+		</addColumn>
+		<addColumn tableName="user">
+			<column name="EMAIL_TOKEN" type="VARCHAR(255)">
+			</column>
+		</addColumn>
+	</changeSet>
+
+ 	<changeSet id="21-01-2021_1" author="Rajesh Khore">
+		<loadData tableName="action" file="db/dump/action_202101211324.csv">
+			<column header="id" name="id" type="NUMERIC" />
+			<column header="name" name="name" type="STRING" />
+			<column header="workflow_id" name="workflow_id" type="NUMERIC" />
+			<column header="is_deleted" name="is_deleted"
+				type="BOOLEAN" />
+			<column header="action_json" name="action_json" type="String" />
+			<column header="trigger_days" name="trigger_days" type="NUMERIC" />
+			<column header="created_date" name="created_date" type="DATE" />
+			<column header="updated_date" name="updated_date" type="DATE" />
+			<column header="action_type_id" name="action_type_id" type="NUMERIC" />
+	  </loadData>
+	  <sql dbms="postgresql">select setval('bflows_schema.action_id_seq', (select max(id)+1 from bflows_schema.action), false)</sql>
+	</changeSet>
+
+	<changeSet author="Rajesh Khore" id="05-02-2021_1">
+		<addColumn tableName="invoices">
+			<column name="EXTERNAL_CREATED_DATE" type="TIMESTAMP WITHOUT TIME ZONE" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="Rajesh Khore" id="05-02-2021_2">
+		<update tableName="client">
+			<column name="workflow_id" value="1" />
+			<where>merchant_id = '1'</where>
+		</update>
+	</changeSet>
+	
+	<changeSet author="Rajesh Khore" id="11-02-2021_01">
+       
+      <loadUpdateData encoding="UTF-8"  onlyUpdate="true" primaryKey="id"  tableName="action" file="db/dump/action_202101211324_new.csv">
+			<column header="action_json" name="action_json" type="String" />
+	  </loadUpdateData> 
+	  <sql dbms="postgresql">select setval('bflows_schema.action_id_seq', (select max(id)+1 from bflows_schema.action), false)</sql>
+    </changeSet> 
+    
+    <changeSet author="Rajesh Khore" id="12-02-2021_1">
+		<addColumn tableName="timeline">
+			<column name="TYPE" type="VARCHAR(255)" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="Rajesh Khore" id="12-02-2021_03">
+		<insert tableName="client">
+			<column name="id" value="9" />
+			<column name="vat_number" value="91021832662" />
+			<column name="created_date" valueDate="now()" />
+			<column name="updated_date" valueDate="now()" />
+			<column name="name" value="Istella spa copy" />
+			<column name="ex_id_client" value="5555051" />
+			<column name="cf" />
+			<column name="address" value="Via delle Vie, 12" />
+			<column name="zip_code" value="09123" />
+			<column name="city" value="Chiagliari" />
+			<column name="province" value="CA" />
+			<column name="address_extra" />
+			<column name="pa_code" />
+			<column name="pec" />
+			<column name="email" />
+			<column name="country" value="IT" />
+			<column name="merchant_id" value="1" />
+			<column name="deleted" value="false" />
+			<column name="telephone" />
+			<column name="default_payment_days" />
+			<column name="workflow_id" value="1" />
+		</insert>
+
+		<insert tableName="invoices">
+			<column name="id" value="12" />
+			<column name="created_date" valueDate="now()" />
+			<column name="updated_date" valueDate="now()" />
+			<column name="amount_gross" value="199" />
+			<column name="amount_net" value="200" />
+			<column name="currency" value="EUR" />
+			<column name="external_id" value="34431" />
+			<column name="external_ref" value="fic-16c5d7627220fa18a60179533772dd0d" />
+			<column name="invoice_number" value="213" />
+			<column name="invoice_state" value="DUE" />
+			<column name="link_doc"
+				value="https://compute.fattureincloud.it/doc/73ee96f5f2d6f990735677fe965f33f8.pdf" />
+			<column name="external_created_date" valueDate="now()" />
+			<column name="client_id" value="9" />
+			<column name="due_date" valueDate="now()" />
+			<column name="expected_date" valueDate="now()" />
+		</insert>
+
+		<insert tableName="action">
+			<column name="id" value="101" />
+			<column name="created_date" valueDate="now()" />
+			<column name="updated_date" valueDate="now()" />
+			<column name="name" value="LETTER ACTION" />
+			<column name="workflow_id" value="1" />
+			<column name="action_json" />
+			<column name="is_deleted" value="false" />
+			<column name="trigger_days" value="6" />
+			<column name="action_type_id" value="3" />
+		</insert>
+
+		<insert tableName="action">
+			<column name="id" value="102" />
+			<column name="created_date" valueDate="now()" />
+			<column name="updated_date" valueDate="now()" />
+			<column name="name" value="TELEPHONE ACTION" />
+			<column name="workflow_id" value="1" />
+			<column name="action_json" />
+			<column name="is_deleted" value="false" />
+			<column name="trigger_days" value="6" />
+			<column name="action_type_id" value="4" />
+		</insert>
+
+		<insert tableName="timeline">
+			<column name="id" value="101" />
+			<column name="created_date" valueDate="now()" />
+			<column name="updated_date" valueDate="now()" />
+			<column name="client_id" value="9" />
+			<column name="invoice_id" value="12" />
+			<column name="action_id" value="1" />
+			<column name="skip" value="false" />
+			<column name="reschedule" value="false" />
+			<column name="status" value="SUCCESS" />
+			<column name="message" />
+			<column name="type" value="ACTION" />
+		</insert>
+
+		<insert tableName="timeline">
+			<column name="id" value="102" />
+			<column name="created_date" valueDate="now()" />
+			<column name="updated_date" valueDate="now()" />
+			<column name="client_id" value="9" />
+			<column name="invoice_id" value="12" />
+			<column name="action_id" value="101" />
+			<column name="skip" value="false" />
+			<column name="reschedule" value="false" />
+			<column name="status" value="SUCCESS" />
+			<column name="message" />
+			<column name="type" value="ACTION" />
+		</insert>
+
+		<insert tableName="timeline">
+			<column name="id" value="103" />
+			<column name="created_date" valueDate="now()" />
+			<column name="updated_date" valueDate="now()" />
+			<column name="client_id" value="9" />
+			<column name="invoice_id" value="12" />
+			<column name="action_id" value="102" />
+			<column name="skip" value="false" />
+			<column name="reschedule" value="false" />
+			<column name="status" value="SUCCESS" />
+			<column name="message" />
+			<column name="type" value="ACTION" />
+		</insert>
+
+		<insert tableName="timeline">
+			<column name="id" value="104" />
+			<column name="created_date" valueDate="now()" />
+			<column name="updated_date" valueDate="now()" />
+			<column name="client_id" value="9" />
+			<column name="invoice_id" value="12" />
+			<column name="action_id" />
+			<column name="skip" value="false" />
+			<column name="reschedule" value="false" />
+			<column name="status" value="SUCCESS" />
+			<column name="message" />
+			<column name="type" value="TRANSACTION" />
+		</insert>
+
+		<sql dbms="postgresql">select setval('bflows_schema.client_id_seq', (select
+			max(id)+1 from bflows_schema.client), false)
+		</sql>
+		<sql dbms="postgresql">select setval('bflows_schema.invoices_id_seq', (select
+			max(id)+1 from bflows_schema.invoices), false)
+		</sql>
+		<sql dbms="postgresql">select setval('bflows_schema.timeline_id_seq', (select
+			max(id)+1 from bflows_schema.timeline), false)
+		</sql>
+		<sql dbms="postgresql">select setval('bflows_schema.action_id_seq', (select
+			max(id)+1 from bflows_schema.action), false)
+		</sql>
+	</changeSet>
+
+    <changeSet author="Rajesh Khore" id="15-03-2021_01">
+       
+      <loadUpdateData encoding="UTF-8"  onlyUpdate="true" primaryKey="id"  tableName="action_type" file="db/dump/action_type_updated.csv">
+			<column header="json" name="json" type="String" />
+	  </loadUpdateData> 
+	  <sql dbms="postgresql">select setval('bflows_schema.action_type_id_seq', (select max(id)+1 from bflows_schema.action_type), false)</sql>
+    </changeSet>
+
+	<changeSet author="Rajesh Khore" id="16-02-2021_1">
+		<delete tableName="action">
+			<where>action_type_id = '2'</where>
+		</delete>
+		<delete tableName="action_type">
+			<where>id = '2'</where>
+		</delete>
+	</changeSet>
+	
+	
+	<changeSet author="Rajesh Khore" id="18-02-2021_1">
+		<addColumn tableName="timeline">
+			<column name="ACTION_JSON" type="TEXT" />
+		</addColumn>
+	</changeSet>
+	
+	
+    <changeSet author="Rajesh Khore" id="23-02-2021_1">
+       
+      <loadUpdateData encoding="UTF-8"  onlyUpdate="true" primaryKey="id"  tableName="timeline" file="db/dump/timeline_202102191254.csv">
+			<column header="action_json" name="action_json" type="String" />
+	  </loadUpdateData> 
+	  <sql dbms="postgresql">select setval('bflows_schema.timeline_id_seq', (select max(id)+1 from bflows_schema.timeline), false)</sql>
+   
+     <update tableName="timeline">
+			<column name="action_id"  />
+			<where>id = '104'</where>
+	</update>
+	
+	<insert tableName="transactions">
+			<column name="id" value="1"></column>
+			<column name="amount" value="199"></column>
+			<column name="method_type" value="CASH"></column>
+			<column name="currency" value="EUR"></column>
+			<column name="payment_date" value="now()"></column>
+			<column name="created_date" valueDate="now()"/>
+			<column name="updated_date" valueDate="now()"/>
+			<column name="invoices_id" value="12" />
+		</insert>
+    </changeSet>
+
+
+	<changeSet author="Rajesh Khore" id="24-02-2021_1">
+		<update tableName="invoicing">
+			<column name="link" value="http://84.221.165.23/license/login" />
+			<where>id = '2'</where>
+		</update>
+	</changeSet>
+    
+    
+     <changeSet author="Rajesh Khore" id="08-03-2021_01">
+      <loadUpdateData encoding="UTF-8"  onlyUpdate="true" primaryKey="id"  tableName="timeline" file="db/dump/timeline__update_actionJson.csv">
+			<column header="action_json" name="action_json" type="String" />
+	  </loadUpdateData> 
+	  <sql dbms="postgresql">select setval('bflows_schema.timeline_id_seq', (select max(id)+1 from bflows_schema.timeline), false)</sql>
+   
+     <update tableName="timeline">
+			<column name="action_id"  />
+			<where>id = '104'</where>
+	</update>
+	
+	 <update tableName="timeline">
+			<column name="action_id"  />
+			<where>id = '105'</where>
+	</update>
+	
+	 <sql dbms="postgresql">select setval('bflows_schema.transactions_id_seq', (select max(id)+1 from bflows_schema.transactions), false)</sql>
+    </changeSet>
+
+
+
+	<changeSet author="Rajesh Khore" id="26-02-2021_1">
+
+		<loadUpdateData encoding="UTF-8" onlyUpdate="true"
+			primaryKey="id" tableName="invoices" file="db/dump/invoices_updated.csv">
+			<column header="external_created_date" name="external_created_date"
+				type="DATE" />
+		</loadUpdateData>
+		<sql dbms="postgresql">select setval('bflows_schema.invoices_id_seq', (select
+			max(id)+1 from bflows_schema.invoices), false)</sql>
+
+	</changeSet>
+	
+	
+	   <changeSet author="Rajesh Khore" id="08-03-2021_02">
+      <loadUpdateData encoding="UTF-8"  onlyUpdate="true" primaryKey="id"  tableName="action" file="db/dump/actionTableUpdateActionJson.csv">
+			<column header="action_json" name="action_json" type="String" />
+	  </loadUpdateData> 
+	  <sql dbms="postgresql">select setval('bflows_schema.action_id_seq', (select
+			max(id)+1 from bflows_schema.action), false)
+	  </sql>
+   
+    </changeSet>
+    
+    
+    <changeSet author="Rajesh Khore" id="17-01-2021_1">
+		<update tableName="invoicing">
+			<column name="link" value="http://62.11.226.159/license/login" />
+			<where>id = '2'</where>
+		</update>
+	</changeSet>
+	
+</databaseChangeLog>

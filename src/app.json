@@ -1,0 +1,9 @@
+{
+    "environments": {
+      "test": {
+        "scripts": {
+          "test": "./mvnw clean test && ./mvnw jacoco:report && bash <(curl -s https://codecov.io/bash) -f target/site/jacoco/jacoco.xml"        
+        }
+      }
+    }
+  }

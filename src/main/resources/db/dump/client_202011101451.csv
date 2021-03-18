@@ -1,0 +1,9 @@
+"id","piva","created_date","updated_date","name","ex_id_client","cf","address","zip_code","city","province","address_extra","pa_code","pec","email","country","merchant_id","deleted","telephone"
+1,"91021832552",2020-11-04 08:59:43,2020-11-04 08:59:43,teatro antico,,,,,,,,,,,IT,1,false,
+2,"99021832552",2020-11-04 08:59:43,2020-11-04 08:59:43,Associazione culturale,,,,,,,,,,,IT,1,false,
+3,"932321832552",2020-11-04 08:59:43,2020-11-04 08:59:43,Moretti Carla Maria Azienda Agricola,,,,,,,,,,,IT,1,false,
+4,"93238777832552",2020-11-04 08:59:43,2020-11-04 08:59:43,Ailanto ets-aps,,,,,,,,,,,IT,1,false,
+5,"932389832552",2020-11-04 08:59:43,2020-11-06 16:48:58,Istella spa,,,"Via delle Vie, 12",,Chiagliari,CA,Interno 6d,,,info@istella.it,IT,1,false,
+6,"03734540929",2020-11-09 14:26:29,2020-11-09 14:26:29,bflows srl,,"",p.zza martiri d'Italia 12,"09124",Cagliari,CA,"",,,,"IT, ""dueDate"": 04/12/2020, ""paCode"": , ""pec"": bflows@pec.it, ""email"": bflows@pec.it",1,false,
+7,IE6388047V,2020-11-09 14:27:11,2020-11-09 14:27:11,Google Ireland Limited,"5555050","","Gordon House ,Barrow Street",D04,Dublin,Dublin,"",,,,"Irlanda, ""dueDate"": 26/03/2020, ""paCode"": XXXXXXX, ""pec"": , ""email"": ",1,false,
+8,GB 970563407,2020-11-09 15:50:41,2020-11-09 15:50:41,IMPACT RADIUS INC,,"",Impact Radius Inc,"93101","223 East De La Guerra Street",Santa Barbara,"",,,,"Stati Uniti"", ""dueDate"": 26/03/2020, ""paCode"": XXXXXXX, ""pec"": , ""email"": ",1,false,
